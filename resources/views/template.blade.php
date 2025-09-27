@@ -16,7 +16,12 @@
     <title>@yield('title')</title>
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.3/css/responsive.dataTables.min.css" />
 </head>
 
 <body>
@@ -32,8 +37,8 @@
                         Master Data
                     </li>
 
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="index.html">
+                    <li class="sidebar-item {{ Route::currentRouteName() == 'dashboard' ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('dashboard') }}">
                             <i class="align-middle" data-feather="sliders"></i> <span
                                 class="align-middle">Dashboard</span>
                         </a>
@@ -44,8 +49,8 @@
                                 class="align-middle">Data Situs Sejarah</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="index.html">
+                    <li class="sidebar-item {{ Route::currentRouteName() == 'kategori.index' ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('kategori.index') }}">
                             <i class="align-middle" data-feather="database"></i> <span
                                 class="align-middle">Data Kategori</span>
                         </a>
@@ -128,7 +133,57 @@
     </div>
 
     <script src="js/app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/3.0.3/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // Pastikan jQuery dan DataTables tersedia
+            if (typeof jQuery !== 'undefined' && typeof $.fn.DataTable !== 'undefined') {
+                $('.datatable').each(function(index) {
+                    var tableId = $(this).attr('id') || 'table-' + index;
+                    console.log('Initializing DataTable for:', tableId);
+
+                    if (!$.fn.DataTable.isDataTable(this)) {
+                        $(this).DataTable({
+                            responsive: true,
+                            pageLength: 10,
+                            lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Semua"]],
+                            language: {
+                                "sProcessing": "Sedang memproses...",
+                                "sLengthMenu": "Tampilkan _MENU_ entri",
+                                "sZeroRecords": "Tidak ditemukan data yang sesuai",
+                                "sInfo": "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                                "sInfoEmpty": "Menampilkan 0 sampai 0 dari 0 entri",
+                                "sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
+                                "sInfoPostFix": "",
+                                "sSearch": "Cari:",
+                                "sUrl": "",
+                                "oPaginate": {
+                                    "sFirst": "Pertama",
+                                    "sPrevious": "Sebelumnya",
+                                    "sNext": "Selanjutnya",
+                                    "sLast": "Terakhir"
+                                }
+                            },
+                            initComplete: function () {
+                                console.log('✓ DataTable initialized successfully for:', tableId);
+                            },
+                            error: function(xhr, status, error) {
+                                console.error('DataTable error for ' + tableId + ':', error);
+                            }
+                        });
+                    } else {
+                        console.log('DataTable already initialized for:', tableId);
+                    }
+                });
+            } else {
+                console.error('Required libraries not loaded - jQuery:', typeof jQuery !== 'undefined', 'DataTables:', typeof $.fn.DataTable !== 'undefined');
+            }
+        });
+    </script>
 </body>
 
 </html>

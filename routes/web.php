@@ -16,3 +16,12 @@ Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->
 Route::get('/dashboard', [App\Http\Controllers\AuthController::class, 'index'])
     ->name('dashboard')
     ->middleware('auth');
+
+Route::prefix('kategori')->middleware('auth')->group(function () {
+    Route::get('/', [App\Http\Controllers\KategoriController::class, 'index'])->name('kategori.index');
+    Route::get('/tambah', [App\Http\Controllers\KategoriController::class, 'create'])->name('kategori.create');
+    Route::post('/simpan', [App\Http\Controllers\KategoriController::class, 'store'])->name('kategori.store');
+    Route::get('/{id}/edit', [App\Http\Controllers\KategoriController::class, 'edit'])->name('kategori.edit');
+    Route::put('/{id}/update', [App\Http\Controllers\KategoriController::class, 'update'])->name('kategori.update');
+    Route::delete('/{id}/hapus', [App\Http\Controllers\KategoriController::class, 'destroy'])->name('kategori.destroy');
+});
