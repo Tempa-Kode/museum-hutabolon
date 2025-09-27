@@ -1,0 +1,87 @@
+.alert {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.375rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+/* Alert Success */
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-success .alert-icon {
+    color: #28a745;
+    margin-right: 0.5rem;
+}
+
+/* Alert Danger */
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.alert-danger .alert-icon {
+    color: #dc3545;
+    margin-right: 0.5rem;
+}
+
+/* Alert Dismissible */
+.alert-dismissible {
+    padding-right: 4rem;
+}
+
+.alert-dismissible .btn-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    padding: 1.25rem 1.25rem;
+    background: transparent;
+    border: 0;
+    font-size: 1.125rem;
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.alert-dismissible .btn-close:hover {
+    opacity: 0.75;
+}
+
+/* Alert Animation */
+.alert {
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Alert with Icons */
+.alert-with-icon {
+    display: flex;
+    align-items: flex-start;
+}
+
+.alert-with-icon .alert-icon {
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: 0.75rem;
+    margin-top: 0.125rem;
+}
