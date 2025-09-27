@@ -11,6 +11,7 @@ Route::get('/login', function () {
 });
 
 Route::post('/login', [App\Http\Controllers\AuthController::class, 'authenticate'])->name('login');
+Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 
 Route::get('/dashboard', [App\Http\Controllers\AuthController::class, 'index'])
     ->name('dashboard')
