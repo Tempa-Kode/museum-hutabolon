@@ -35,3 +35,13 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::put('/{id}/update', [App\Http\Controllers\AdminController::class, 'update'])->name('admin.update');
     Route::delete('/{id}/hapus', [App\Http\Controllers\AdminController::class, 'destroy'])->name('admin.destroy');
 });
+
+// Route resource untuk pengelola konten
+Route::prefix('pengelola-konten')->middleware('auth')->group(function () {
+    Route::get('/', [App\Http\Controllers\PengelolaKontenController::class, 'index'])->name('pengelola-konten.index');
+    Route::get('/tambah', [App\Http\Controllers\PengelolaKontenController::class, 'create'])->name('pengelola-konten.create');
+    Route::post('/simpan', [App\Http\Controllers\PengelolaKontenController::class, 'store'])->name('pengelola-konten.store');
+    Route::get('/{id}/edit', [App\Http\Controllers\PengelolaKontenController::class, 'edit'])->name('pengelola-konten.edit');
+    Route::put('/{id}/update', [App\Http\Controllers\PengelolaKontenController::class, 'update'])->name('pengelola-konten.update');
+    Route::delete('/{id}/hapus', [App\Http\Controllers\PengelolaKontenController::class, 'destroy'])->name('pengelola-konten.destroy');
+});

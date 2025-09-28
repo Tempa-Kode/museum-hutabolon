@@ -65,14 +65,14 @@
                     <li class="sidebar-header">
                         Master Data
                     </li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item {{ Route::currentRouteName() == 'admin.index' ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{ route('admin.index') }}">
                             <i class="align-middle" data-feather="users"></i> <span
                                 class="align-middle">Data Admin</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="index.html">
+                    <li class="sidebar-item {{ Route::currentRouteName() == 'pengelola-konten.index' ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('pengelola-konten.index') }}">
                             <i class="align-middle" data-feather="users"></i> <span
                                 class="align-middle">Data Pengelola Konten</span>
                         </a>
