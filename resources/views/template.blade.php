@@ -11,7 +11,7 @@
         content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+    <link rel="shortcut icon" href="{{ asset('img/icons/icon-48x48.png') }}" />
 
     <title>@yield('title')</title>
 
@@ -66,7 +66,7 @@
                         Master Data
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="index.html">
+                        <a class="sidebar-link" href="{{ route('admin.index') }}">
                             <i class="align-middle" data-feather="users"></i> <span
                                 class="align-middle">Data Admin</span>
                         </a>
@@ -132,7 +132,7 @@
         </div>
     </div>
 
-    <script src="js/app.js"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
     <!-- DataTables JS -->

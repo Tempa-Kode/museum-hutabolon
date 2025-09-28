@@ -25,3 +25,13 @@ Route::prefix('kategori')->middleware('auth')->group(function () {
     Route::put('/{id}/update', [App\Http\Controllers\KategoriController::class, 'update'])->name('kategori.update');
     Route::delete('/{id}/hapus', [App\Http\Controllers\KategoriController::class, 'destroy'])->name('kategori.destroy');
 });
+
+// Route resource untuk admin
+Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
+    Route::get('/tambah', [App\Http\Controllers\AdminController::class, 'create'])->name('admin.create');
+    Route::post('/simpan', [App\Http\Controllers\AdminController::class, 'store'])->name('admin.store');
+    Route::get('/{id}/edit', [App\Http\Controllers\AdminController::class, 'edit'])->name('admin.edit');
+    Route::put('/{id}/update', [App\Http\Controllers\AdminController::class, 'update'])->name('admin.update');
+    Route::delete('/{id}/hapus', [App\Http\Controllers\AdminController::class, 'destroy'])->name('admin.destroy');
+});
