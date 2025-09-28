@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class SitusSejarah extends Model
 {
@@ -30,5 +31,15 @@ class SitusSejarah extends Model
     public function favorit() : HasMany
     {
         return $this->hasMany(SitusFavorit::class, 'situs_sejarah_id');
+    }
+
+    public function totalPencarian() : HasOne
+    {
+        return $this->hasOne(TotalPencarian::class, 'situs_sejarah_id');
+    }
+
+    public function gambarVideo() : HasMany
+    {
+        return $this->hasMany(GambarVidio::class, 'situs_sejarah_id');
     }
 }

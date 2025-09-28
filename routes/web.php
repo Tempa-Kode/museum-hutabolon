@@ -45,3 +45,14 @@ Route::prefix('pengelola-konten')->middleware('auth')->group(function () {
     Route::put('/{id}/update', [App\Http\Controllers\PengelolaKontenController::class, 'update'])->name('pengelola-konten.update');
     Route::delete('/{id}/hapus', [App\Http\Controllers\PengelolaKontenController::class, 'destroy'])->name('pengelola-konten.destroy');
 });
+
+// Route resource untuk situs sejarah
+Route::prefix('situs-sejarah')->middleware('auth')->group(function () {
+    Route::get('/', [App\Http\Controllers\SitusSejarahController::class, 'index'])->name('situs-sejarah.index');
+    Route::get('/tambah', [App\Http\Controllers\SitusSejarahController::class, 'create'])->name('situs-sejarah.create');
+    Route::post('/simpan', [App\Http\Controllers\SitusSejarahController::class, 'store'])->name('situs-sejarah.store');
+    Route::get('/{slug}', [App\Http\Controllers\SitusSejarahController::class, 'show'])->name('situs-sejarah.show');
+    Route::get('/{slug}/edit', [App\Http\Controllers\SitusSejarahController::class, 'edit'])->name('situs-sejarah.edit');
+    Route::put('/{slug}/update', [App\Http\Controllers\SitusSejarahController::class, 'update'])->name('situs-sejarah.update');
+    Route::delete('/{slug}/hapus', [App\Http\Controllers\SitusSejarahController::class, 'destroy'])->name('situs-sejarah.destroy');
+});

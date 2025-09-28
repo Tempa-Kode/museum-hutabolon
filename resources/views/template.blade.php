@@ -22,6 +22,7 @@
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.3/css/responsive.dataTables.min.css" />
+    @stack('styles')
 </head>
 
 <body>
@@ -43,8 +44,8 @@
                                 class="align-middle">Dashboard</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="index.html">
+                    <li class="sidebar-item {{ Route::currentRouteName() == 'situs-sejarah.index' ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('situs-sejarah.index') }}">
                             <i class="align-middle" data-feather="database"></i> <span
                                 class="align-middle">Data Situs Sejarah</span>
                         </a>
@@ -138,6 +139,8 @@
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/2.3.4/js/dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/3.0.3/js/dataTables.responsive.min.js"></script>
+
+    @stack('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
             // Pastikan jQuery dan DataTables tersedia
