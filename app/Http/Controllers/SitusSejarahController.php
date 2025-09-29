@@ -187,4 +187,56 @@ class SitusSejarahController extends Controller
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat menyimpan media: ' . $e->getMessage()])->withInput();
         }
     }
+
+    /**
+     * Menghapus media (gambar/video) dari situs sejarah
+     */
+    public function deleteMedia($slug, $mediaId)
+    {
+        try {
+            // Cari situs sejarah berdasarkan slug
+            $situsSejarah = SitusSejarah::where('slug', $slug)->firstOrFail();
+
+            // Cari media yang akan dihapus
+            $media = $situsSejarah->gambarVideo()->findOrFail($mediaId);
+
+            // Cek apakah ini satu-satunya media
+            $totalMedia = $situsSejarah->gambarVideo()->count();
+            if ($totalMedia <= 1) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Tidak dapat menghapus media ini karena harus ada minimal satu media.'
+                ], 400);
+            }
+
+            DB::beginTransaction();
+
+            // Jika media adalah gambar, hapus file dari storage
+            if ($media->jenis === 'gambar' && $media->link) {
+                $filePath = public_path($media->link);
+                if (file_exists($filePath)) {
+                    unlink($filePath);
+                }
+            }
+
+            // Hapus record dari database
+            $media->delete();
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Media berhasil dihapus.'
+            ]);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error deleting media: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal menghapus media: ' . $e->getMessage()
+            ], 500);
+        }
+    }
 }

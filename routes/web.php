@@ -55,6 +55,7 @@ Route::prefix('situs-sejarah')->middleware('auth')->group(function () {
     Route::get('/{slug}/edit', [App\Http\Controllers\SitusSejarahController::class, 'edit'])->name('situs-sejarah.edit');
     Route::get('/{slug}/tambah-vidgam', [App\Http\Controllers\SitusSejarahController::class, 'createVidGam'])->name('situs-sejarah.tambah-vidgam');
     Route::post('/{slug}/simpan-vidgam', [App\Http\Controllers\SitusSejarahController::class, 'storeVidGam'])->name('situs-sejarah.simpan-vidgam');
+    Route::delete('/{slug}/hapus-media/{mediaId}', [App\Http\Controllers\SitusSejarahController::class, 'deleteMedia'])->name('situs-sejarah.hapus-media');
     Route::put('/{slug}/update', [App\Http\Controllers\SitusSejarahController::class, 'update'])->name('situs-sejarah.update');
     Route::delete('/{slug}/hapus', [App\Http\Controllers\SitusSejarahController::class, 'destroy'])->name('situs-sejarah.destroy');
 });

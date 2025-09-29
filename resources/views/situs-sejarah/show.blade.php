@@ -142,8 +142,16 @@
                                                 @foreach ($data->gambarVideo as $index => $item)
                                                     <div class="thumbnail-item {{ $firstImageId && $item->id === $firstImageId ? "active" : "" }}"
                                                         data-index="{{ $index }}" data-type="{{ $item->jenis }}"
-                                                        data-link="{{ $item->link }}"
+                                                        data-link="{{ $item->link }}" data-id="{{ $item->id }}"
                                                         @if ($item->jenis === "gambar") data-fullsrc="{{ asset($item->link) }}" @endif>
+
+                                                        <!-- Delete Button -->
+                                                        <button type="button" class="delete-media-btn"
+                                                            data-id="{{ $item->id }}" data-type="{{ $item->jenis }}"
+                                                            title="Hapus {{ $item->jenis === "gambar" ? "Gambar" : "Video" }}">
+                                                            <i data-feather="x"></i>
+                                                        </button>
+
                                                         @if ($item->jenis === "gambar")
                                                             <img src="{{ asset($item->link) }}"
                                                                 alt="Thumbnail {{ $index + 1 }}" class="thumbnail-img">
@@ -341,6 +349,94 @@
             border: 2px solid transparent;
             transition: all 0.3s ease;
             position: relative;
+        }
+
+        /* Delete Button Styles */
+        .delete-media-btn {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 20px;
+            height: 20px;
+            background: rgba(220, 53, 69, 0.9);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.2s ease;
+            font-size: 12px;
+        }
+
+        .delete-media-btn:hover {
+            background: #dc3545;
+            transform: scale(1.1);
+        }
+
+        .thumbnail-item:hover .delete-media-btn {
+            display: flex;
+        }
+
+        /* Loading state saat delete */
+        .thumbnail-item.deleting {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .thumbnail-item.deleting::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid #ccc;
+            border-top: 2px solid #dc3545;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Delete Button Styles */
+        .delete-media-btn {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 20px;
+            height: 20px;
+            background: rgba(220, 53, 69, 0.9);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.2s ease;
+            font-size: 12px;
+        }
+
+        .delete-media-btn:hover {
+            background: #dc3545;
+            transform: scale(1.1);
+        }
+
+        .thumbnail-item:hover .delete-media-btn {
+            display: flex;
         }
 
         .thumbnail-item:hover {
@@ -550,8 +646,67 @@
 
             updateNavigationButtons();
 
+            // Delete media handler
+            $(document).on('click', '.delete-media-btn', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const mediaId = $(this).data('id');
+                const mediaType = $(this).data('type');
+                const $thumbnail = $(this).closest('.thumbnail-item');
+
+                // Konfirmasi hapus
+                const mediaTypeText = mediaType === 'gambar' ? 'gambar' : 'video';
+                if (!confirm(`Apakah Anda yakin ingin menghapus ${mediaTypeText} ini?`)) {
+                    return;
+                }
+
+                // Kirim request delete
+                $.ajax({
+                    url: `{{ $data->slug }}/hapus-media/${mediaId}`,
+                    type: 'DELETE',
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content')
+                    },
+                    beforeSend: function() {
+                        $thumbnail.addClass('deleting');
+                        $(this).prop('disabled', true);
+                    },
+                    success: function(response) {
+                        // Hapus thumbnail dari DOM
+                        $thumbnail.fadeOut(300, function() {
+                            $(this).remove();
+
+                            // Update gallery
+                            updateGalleryAfterDelete();
+
+                            // Show success message
+                            showAlert('success', 'Media berhasil dihapus!');
+                        });
+                    },
+                    error: function(xhr) {
+                        $thumbnail.removeClass('deleting');
+                        $(this).prop('disabled', false);
+
+                        let errorMessage = 'Gagal menghapus media.';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMessage = xhr.responseJSON.message;
+                        }
+
+                        showAlert('error', errorMessage);
+                    }
+                });
+            });
+
+            updateNavigationButtons();
+
             // Klik thumbnail
             $('.thumbnail-item').on('click', function(e) {
+                // Jangan trigger jika yang diklik adalah tombol delete
+                if ($(e.target).closest('.delete-media-btn').length) {
+                    return;
+                }
+
                 const index = parseInt($(this).data('index'));
                 const type = $(this).data('type');
                 const link = $(this).data('link');
@@ -650,6 +805,74 @@
             $(document).on('touchend mouseup', function() {
                 isDragging = false;
             });
+
+            // Helper functions
+            function updateGalleryAfterDelete() {
+                // Update thumbnail items reference
+                const updatedItems = $('.thumbnail-item');
+
+                // Re-index thumbnails
+                updatedItems.each(function(newIndex) {
+                    $(this).attr('data-index', newIndex);
+                });
+
+                // Check if no media left
+                if (updatedItems.length === 0) {
+                    mainDisplay.html(`
+                        <div class="text-center text-muted p-4">
+                            <i class="align-middle" data-feather="image" style="width: 48px; height: 48px;"></i>
+                            <p class="mt-2">Tidak ada media tersedia</p>
+                        </div>
+                    `);
+
+                    // Hide thumbnail gallery
+                    $('.thumbnail-gallery').fadeOut();
+
+                    // Re-initialize feather icons
+                    if (typeof feather !== 'undefined') {
+                        feather.replace();
+                    }
+                } else {
+                    // If active item was deleted, activate first image
+                    if (!$('.thumbnail-item.active').length) {
+                        const firstImage = updatedItems.filter('[data-type="gambar"]').first();
+                        if (firstImage.length) {
+                            firstImage.trigger('click');
+                        }
+                    }
+
+                    // Update current index
+                    const activeIndex = $('.thumbnail-item.active').attr('data-index');
+                    if (activeIndex !== undefined) {
+                        currentIndex = parseInt(activeIndex);
+                    } else {
+                        currentIndex = 0;
+                    }
+
+                    // Update navigation
+                    updateNavigationButtons();
+                }
+            }
+
+            function showAlert(type, message) {
+                const alertClass = type === 'success' ? 'alert-success' : 'alert-danger';
+                const alertIcon = type === 'success' ? 'Berhasil!' : 'Error!';
+
+                const alertHtml = `
+                    <div class="alert ${alertClass} alert-dismissible fade show" role="alert">
+                        <strong>${alertIcon}</strong> ${message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                `;
+
+                // Insert alert at top of card
+                $('.card-body').prepend(alertHtml);
+
+                // Auto hide after 5 seconds
+                setTimeout(function() {
+                    $('.alert').fadeOut();
+                }, 5000);
+            }
         });
     </script>
 @endpush

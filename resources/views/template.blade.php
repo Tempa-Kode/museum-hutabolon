@@ -5,24 +5,25 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
     <meta name="author" content="AdminKit">
     <meta name="keywords"
         content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="shortcut icon" href="{{ asset('img/icons/icon-48x48.png') }}" />
+    <link rel="shortcut icon" href="{{ asset("img/icons/icon-48x48.png") }}" />
 
-    <title>@yield('title')</title>
+    <title>@yield("title")</title>
 
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset("css/app.css") }}" rel="stylesheet">
+    <link href="{{ asset("css/style.css") }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.3/css/responsive.dataTables.min.css" />
-    @stack('styles')
+    @stack("styles")
 </head>
 
 <body>
@@ -38,44 +39,45 @@
                         Master Data
                     </li>
 
-                    <li class="sidebar-item {{ Route::currentRouteName() == 'dashboard' ? 'active' : '' }}">
-                        <a class="sidebar-link" href="{{ route('dashboard') }}">
+                    <li class="sidebar-item {{ Route::currentRouteName() == "dashboard" ? "active" : "" }}">
+                        <a class="sidebar-link" href="{{ route("dashboard") }}">
                             <i class="align-middle" data-feather="sliders"></i> <span
                                 class="align-middle">Dashboard</span>
                         </a>
                     </li>
-                    <li class="sidebar-item {{ Route::currentRouteName() == 'situs-sejarah.index' ? 'active' : '' }}">
-                        <a class="sidebar-link" href="{{ route('situs-sejarah.index') }}">
-                            <i class="align-middle" data-feather="database"></i> <span
-                                class="align-middle">Data Situs Sejarah</span>
+                    <li class="sidebar-item {{ Route::currentRouteName() == "situs-sejarah.index" ? "active" : "" }}">
+                        <a class="sidebar-link" href="{{ route("situs-sejarah.index") }}">
+                            <i class="align-middle" data-feather="database"></i> <span class="align-middle">Data Situs
+                                Sejarah</span>
                         </a>
                     </li>
-                    <li class="sidebar-item {{ Route::currentRouteName() == 'kategori.index' ? 'active' : '' }}">
-                        <a class="sidebar-link" href="{{ route('kategori.index') }}">
-                            <i class="align-middle" data-feather="database"></i> <span
-                                class="align-middle">Data Kategori</span>
+                    <li class="sidebar-item {{ Route::currentRouteName() == "kategori.index" ? "active" : "" }}">
+                        <a class="sidebar-link" href="{{ route("kategori.index") }}">
+                            <i class="align-middle" data-feather="database"></i> <span class="align-middle">Data
+                                Kategori</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="index.html">
-                            <i class="align-middle" data-feather="database"></i> <span
-                                class="align-middle">Data Komentar</span>
+                            <i class="align-middle" data-feather="database"></i> <span class="align-middle">Data
+                                Komentar</span>
                         </a>
                     </li>
 
                     <li class="sidebar-header">
                         Master Data
                     </li>
-                    <li class="sidebar-item {{ Route::currentRouteName() == 'admin.index' ? 'active' : '' }}">
-                        <a class="sidebar-link" href="{{ route('admin.index') }}">
-                            <i class="align-middle" data-feather="users"></i> <span
-                                class="align-middle">Data Admin</span>
+                    <li class="sidebar-item {{ Route::currentRouteName() == "admin.index" ? "active" : "" }}">
+                        <a class="sidebar-link" href="{{ route("admin.index") }}">
+                            <i class="align-middle" data-feather="users"></i> <span class="align-middle">Data
+                                Admin</span>
                         </a>
                     </li>
-                    <li class="sidebar-item {{ Route::currentRouteName() == 'pengelola-konten.index' ? 'active' : '' }}">
-                        <a class="sidebar-link" href="{{ route('pengelola-konten.index') }}">
-                            <i class="align-middle" data-feather="users"></i> <span
-                                class="align-middle">Data Pengelola Konten</span>
+                    <li
+                        class="sidebar-item {{ Route::currentRouteName() == "pengelola-konten.index" ? "active" : "" }}">
+                        <a class="sidebar-link" href="{{ route("pengelola-konten.index") }}">
+                            <i class="align-middle" data-feather="users"></i> <span class="align-middle">Data Pengelola
+                                Konten</span>
                         </a>
                     </li>
                 </ul>
@@ -112,9 +114,9 @@
             <main class="content">
                 <div class="container-fluid p-0">
 
-                    <h1 class="h3 mb-3">@yield('title-page')</h1>
+                    <h1 class="h3 mb-3">@yield("title-page")</h1>
 
-                    @yield('body')
+                    @yield("body")
 
                 </div>
             </main>
@@ -133,14 +135,15 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="{{ asset("js/app.js") }}"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/2.3.4/js/dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/3.0.3/js/dataTables.responsive.min.js"></script>
 
-    @stack('scripts')
+    @stack("scripts")
     <script type="text/javascript">
         $(document).ready(function() {
             // Pastikan jQuery dan DataTables tersedia
@@ -153,7 +156,10 @@
                         $(this).DataTable({
                             responsive: true,
                             pageLength: 10,
-                            lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Semua"]],
+                            lengthMenu: [
+                                [10, 25, 50, 100, -1],
+                                [10, 25, 50, 100, "Semua"]
+                            ],
                             language: {
                                 "sProcessing": "Sedang memproses...",
                                 "sLengthMenu": "Tampilkan _MENU_ entri",
@@ -171,8 +177,9 @@
                                     "sLast": "Terakhir"
                                 }
                             },
-                            initComplete: function () {
-                                console.log('✓ DataTable initialized successfully for:', tableId);
+                            initComplete: function() {
+                                console.log('✓ DataTable initialized successfully for:',
+                                    tableId);
                             },
                             error: function(xhr, status, error) {
                                 console.error('DataTable error for ' + tableId + ':', error);
@@ -183,7 +190,8 @@
                     }
                 });
             } else {
-                console.error('Required libraries not loaded - jQuery:', typeof jQuery !== 'undefined', 'DataTables:', typeof $.fn.DataTable !== 'undefined');
+                console.error('Required libraries not loaded - jQuery:', typeof jQuery !== 'undefined',
+                    'DataTables:', typeof $.fn.DataTable !== 'undefined');
             }
         });
     </script>
