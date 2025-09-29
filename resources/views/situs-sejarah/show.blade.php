@@ -28,7 +28,7 @@
                                     $youtubeId = null;
                                     $start = null; // dalam detik
 
-                                    if ($firstItem && $firstItem->jenis === "video") {
+                                    if ($firstItem && $firstItem->jenis === "vidio") {
                                         $url = trim($firstItem->link ?? "");
 
                                         // Normalisasi URL
@@ -112,9 +112,12 @@
                                             <div class="text-center text-muted p-4">
                                                 <i class="align-middle" data-feather="link"
                                                     style="width: 48px; height: 48px;"></i>
-                                                <p class="mt-2 mb-1">Video dikenali sebagai YouTube.</p>
-                                                <a href="{{ $firstItem->link }}" target="_blank" rel="noopener">Buka tautan
-                                                    video</a>
+                                                <p class="mt-2 mb-1">Video tidak dapat dimuat sebagai embed.</p>
+                                                <a href="{{ $firstItem->link }}" target="_blank" rel="noopener"
+                                                    class="btn btn-primary">
+                                                    <i class="align-middle" data-feather="external-link"></i>
+                                                    Buka Video
+                                                </a>
                                             </div>
                                         @endif
                                     </div>
@@ -304,16 +307,41 @@
         /* Gallery Styles */
         .main-media-container {
             position: relative;
-            min-height: 300px;
+            min-height: 400px;
             background: #f8f9fa;
             border-radius: 0.5rem;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-media-display {
+            width: 100%;
+            height: 400px;
+            position: relative;
         }
 
         .main-image {
             width: 100%;
-            height: 400px;
+            height: 100%;
             object-fit: cover;
+            border-radius: 0.5rem;
+        }
+
+        .ratio.ratio-16x9 {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .ratio.ratio-16x9 iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 0.5rem;
         }
 
         .thumbnail-gallery {
@@ -711,11 +739,53 @@
                 const type = $(this).data('type');
                 const link = $(this).data('link');
 
-                if (type === 'video') {
-                    // JANGAN tampilkan video di Main Media
-                    // Pilihan: buka di tab baru
-                    if (link) window.open(link, '_blank');
-                    return; // stop di sini
+                console.log('Thumbnail clicked:', {
+                    index,
+                    type,
+                    link
+                });
+
+                if (type === 'vidio') {
+                    // Tampilkan video di Main Media Display
+                    const videoId = extractYouTubeId(link);
+                    if (videoId) {
+                        const embedUrl = `https://www.youtube.com/embed/${videoId}?enablejsapi=1&rel=0`;
+                        mainDisplay.html(`
+                            <div class="ratio ratio-16x9">
+                                <iframe src="${embedUrl}" title="YouTube video player"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen class="rounded">
+                                </iframe>
+                            </div>
+                        `);
+                    } else {
+                        // Fallback jika bukan YouTube
+                        mainDisplay.html(`
+                            <div class="text-center text-muted p-4">
+                                <i class="align-middle" data-feather="link" style="width: 48px; height: 48px;"></i>
+                                <p class="mt-2 mb-1">Video tidak dapat dimuat sebagai embed.</p>
+                                <a href="${link}" target="_blank" rel="noopener" class="btn btn-primary">
+                                    <i class="align-middle" data-feather="external-link"></i>
+                                    Buka Video
+                                </a>
+                            </div>
+                        `);
+
+                        // Re-initialize feather icons
+                        if (typeof feather !== 'undefined') {
+                            feather.replace();
+                        }
+                    }
+
+                    // Update active state
+                    $('.thumbnail-item').removeClass('active');
+                    $(this).addClass('active');
+
+                    currentIndex = index;
+                    scrollToThumbnail(currentIndex);
+                    updateNavigationButtons();
+                    return;
                 }
 
                 // Hanya gambar yang boleh mengganti Main Media
@@ -760,6 +830,27 @@
                 const visibleItems = Math.floor(thumbnailTrack.parent().width() / itemWidth);
                 $('#prevBtn').prop('disabled', currentIndex <= 0);
                 $('#nextBtn').prop('disabled', currentIndex >= thumbnailItems.length - visibleItems);
+            }
+
+            function extractYouTubeId(url) {
+                if (!url) return null;
+
+                const patterns = [
+                    /(?:youtube\.com\/watch\?v=)([^&\n?#]+)/,
+                    /(?:youtube\.com\/embed\/)([^&\n?#]+)/,
+                    /(?:youtu\.be\/)([^&\n?#]+)/,
+                    /(?:youtube\.com\/v\/)([^&\n?#]+)/,
+                    /(?:youtube\.com\/shorts\/)([^&\n?#]+)/
+                ];
+
+                for (let pattern of patterns) {
+                    const match = url.match(pattern);
+                    if (match && match[1]) {
+                        return match[1];
+                    }
+                }
+
+                return null;
             }
 
             function extractYouTubeId(url) {
