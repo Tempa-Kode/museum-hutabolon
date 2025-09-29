@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kategori;
-use App\Models\KategoriSitus;
 use Illuminate\Support\Str;
 use App\Models\SitusSejarah;
 use Illuminate\Http\Request;
+use App\Models\KategoriSitus;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class SitusSejarahController extends Controller
 {
@@ -123,5 +124,67 @@ class SitusSejarahController extends Controller
         $situsSejarah = SitusSejarah::where('slug', $slug)->firstOrFail();
         $situsSejarah->delete();
         return redirect()->route('situs-sejarah.index')->with('success', 'Situs sejarah berhasil dihapus.');
+    }
+
+    /**
+     * Menampilkan form untuk menambahkan video atau gambar ke situs sejarah.
+     */
+    public function createVidGam($slug)
+    {
+        $data = SitusSejarah::where('slug', $slug)->firstOrFail();
+        return view('situs-sejarah.tambah-vidgam', compact('data'));
+    }
+
+    /**
+     * Menyimpan video atau gambar ke dalam database.
+     */
+    public function storeVidGam(Request $request, $slug)
+    {
+        $validasi = $request->validate([
+            'jenis' => 'required|in:vidio,gambar',
+            'gambar' => 'required_if:jenis,gambar|image|max:5120',
+            'video_url' => 'required_if:jenis,vidio',
+            'keterangan' => 'nullable|string|max:255',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $situsSejarah = SitusSejarah::where('slug', $slug)->firstOrFail();
+
+            if ($validasi['jenis'] === 'gambar') {
+                // Buat folder uploads jika belum ada
+                $uploadPath = public_path('uploads');
+                if (!file_exists($uploadPath)) {
+                    mkdir($uploadPath, 0755, true);
+                }
+
+                // Generate nama file unik
+                $file = $request->file('gambar');
+                $fileName = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+
+                // Pindahkan file ke public/uploads
+                $file->move($uploadPath, $fileName);
+
+                // Simpan path relatif ke database
+                $gambarPath = 'uploads/' . $fileName;
+
+                $situsSejarah->gambarVideo()->create([
+                    'jenis' => 'gambar',
+                    'link' => $gambarPath,
+                ]);
+            } else {
+                $situsSejarah->gambarVideo()->create([
+                    'jenis' => 'vidio',
+                    'link' => $validasi['video_url'],
+                ]);
+            }
+
+            DB::commit();
+            return redirect()->route('situs-sejarah.show', $slug)->with('success', 'Media berhasil ditambahkan.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error storing media: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat menyimpan media: ' . $e->getMessage()])->withInput();
+        }
     }
 }
