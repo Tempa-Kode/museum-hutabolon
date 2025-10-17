@@ -63,6 +63,12 @@
                                 Komentar</span>
                         </a>
                     </li>
+                    <li class="sidebar-item {{ Route::currentRouteName() == "event.index" ? "active" : "" }}">
+                        <a class="sidebar-link" href="{{ route("event.index") }}">
+                            <i class="align-middle" data-feather="database"></i>
+                            <span class="align-middle">Data Event</span>
+                        </a>
+                    </li>
 
                     <li class="sidebar-header">
                         Data Pengguna

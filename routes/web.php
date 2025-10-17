@@ -59,3 +59,14 @@ Route::prefix('situs-sejarah')->middleware('auth')->group(function () {
     Route::put('/{slug}/update', [App\Http\Controllers\SitusSejarahController::class, 'update'])->name('situs-sejarah.update');
     Route::delete('/{slug}/hapus', [App\Http\Controllers\SitusSejarahController::class, 'destroy'])->name('situs-sejarah.destroy');
 });
+
+// Route resource untuk event
+Route::prefix('event')->middleware('auth')->group(function () {
+    Route::get('/', [App\Http\Controllers\EventController::class, 'index'])->name('event.index');
+    Route::get('/tambah', [App\Http\Controllers\EventController::class, 'create'])->name('event.create');
+    Route::post('/simpan', [App\Http\Controllers\EventController::class, 'store'])->name('event.store');
+    Route::get('/{id}', [App\Http\Controllers\EventController::class, 'show'])->name('event.show');
+    Route::get('/{event:id}/edit', [App\Http\Controllers\EventController::class, 'edit'])->name('event.edit');
+    Route::put('/{event:id}/update', [App\Http\Controllers\EventController::class, 'update'])->name('event.update');
+    Route::delete('/{event:id}/hapus', [App\Http\Controllers\EventController::class, 'destroy'])->name('event.destroy');
+});
