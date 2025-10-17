@@ -65,7 +65,7 @@
                     </li>
 
                     <li class="sidebar-header">
-                        Master Data
+                        Data Pengguna
                     </li>
                     <li class="sidebar-item {{ Route::currentRouteName() == "admin.index" ? "active" : "" }}">
                         <a class="sidebar-link" href="{{ route("admin.index") }}">
