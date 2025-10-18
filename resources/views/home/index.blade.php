@@ -41,8 +41,8 @@
                             data-voffset="80" data-speed="700" data-start="2000" data-easing="easeOutBack"
                             data-customin="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;"
                             data-splitin="none" data-splitout="none" data-elementdelay="0.1"
-                            data-endelementdelay="0.1" data-endspeed="300" data-captionhidden="on"> <a href="#."
-                            class="btn">Explore</a> &nbsp; &nbsp; &nbsp; &nbsp;
+                            data-endelementdelay="0.1" data-endspeed="300" data-captionhidden="on">
+                            <a href="{{ route('gallery') }}" class="btn">Explore</a> &nbsp; &nbsp; &nbsp; &nbsp;
                         </div>
                     </li>
 
@@ -82,8 +82,8 @@
                             data-voffset="80" data-speed="700" data-start="2000" data-easing="easeOutBack"
                             data-customin="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;"
                             data-splitin="none" data-splitout="none" data-elementdelay="0.1"
-                            data-endelementdelay="0.1" data-endspeed="300" data-captionhidden="on"> <a href="#."
-                            class="btn">Explore</a> &nbsp; &nbsp; &nbsp; &nbsp;
+                            data-endelementdelay="0.1" data-endspeed="300" data-captionhidden="on">
+                            <a href="{{ route('gallery') }}" class="btn">Explore</a> &nbsp; &nbsp; &nbsp; &nbsp;
                         </div>
                     </li>
 
@@ -123,8 +123,8 @@
                             data-voffset="80" data-speed="700" data-start="2000" data-easing="easeOutBack"
                             data-customin="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;"
                             data-splitin="none" data-splitout="none" data-elementdelay="0.1"
-                            data-endelementdelay="0.1" data-endspeed="300" data-captionhidden="on"> <a href="#."
-                            class="btn">Explore</a> &nbsp; &nbsp; &nbsp; &nbsp;
+                            data-endelementdelay="0.1" data-endspeed="300" data-captionhidden="on">
+                            <a href="{{ route('gallery') }}" class="btn">Explore</a> &nbsp; &nbsp; &nbsp; &nbsp;
                         </div>
                     </li>
                 </ul>

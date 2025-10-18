@@ -73,10 +73,9 @@
                 <!-- Nav -->
                 <nav>
                     <ul id="ownmenu" class="ownmenu">
-                        <li class="active"><a href="{{ route('home') }}">HOME</a></li>
-                        <li><a href="gallery.html"> Gallery </a></li>
-                        <li><a href="event.html"> EVENT </a></li>
-                        <li><a href="contact.html"> Contact</a></li>
+                        <li class="{{ Route::currentRouteName() === 'home' ? 'active' : '' }}"><a href="{{ route('home') }}">HOME</a></li>
+                        <li class="{{ Route::currentRouteName() === 'gallery' ? 'active' : '' }}"><a href="{{ route('gallery') }}"> Gallery </a></li>
+                        <li class="{{ Route::currentRouteName() === 'events' ? 'active' : '' }}"><a href="{{ route('events') }}"> EVENT </a></li>
                     </ul>
                 </nav>
             </div>
@@ -92,9 +91,8 @@
 
                 <ul class="foot-link">
                     <li><a href="{{ route('home') }}">Home </a></li>
-                    <li><a href="#."> Gallery </a></li>
-                    <li><a href="#."> Events </a></li>
-                    <li><a href="#."> Contact</a></li>
+                    <li><a href="{{ route('gallery') }}"> Gallery </a></li>
+                    <li><a href="{{ route('events') }}"> Events </a></li>
                 </ul>
                 <!-- Footer Logo -->
                 <div class="foot-logo"> <img src="{{ asset('home/images/logo-footer.png') }}" alt=""> </div>
