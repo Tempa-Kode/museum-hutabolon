@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'beranda'])->name('home');
+Route::get('/gallery', [App\Http\Controllers\HomeController::class, 'gallery'])->name('gallery');
 
 Route::get('/login', function () {
     return view('auth.login');
