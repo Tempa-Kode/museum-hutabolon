@@ -34,4 +34,15 @@ class HomeController extends Controller
             ->withQueryString();
         return view('home.gallery', compact('gallery', 'kategori'));
     }
+
+    public function event(Request $request)
+    {
+        $data = Event::latest()
+            ->when($request->search, function($query) use ($request) {
+                $query->where('nama_event', 'like', '%'.$request->search.'%');
+            })
+            ->cursorPaginate(10)
+            ->withQueryString();
+        return view('home.event', compact('data'));
+    }
 }
