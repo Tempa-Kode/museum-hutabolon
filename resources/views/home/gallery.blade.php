@@ -2,7 +2,7 @@
     use Illuminate\Support\Str;
 @endphp
 @extends("home.template")
-@section("title", "Beranda")
+@section("title", "Galery/Situs Sejarah")
 @section("body")
     <!--======= HOME MAIN SLIDER =========-->
     <section class="sub-bnr sub-gallery" data-stellar-background-ratio="0.3">
