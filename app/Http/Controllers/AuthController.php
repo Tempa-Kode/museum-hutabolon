@@ -23,8 +23,8 @@ class AuthController extends Controller
                     return redirect()->route('dashboard');
                 // case 'tamu':
                 //     return redirect()->route('user/dashboard');
-                // case 'pengelola-konten':
-                //     return redirect()->route('user/dashboard');
+                case 'pengelola-konten':
+                    return redirect()->route('dashboard');
                 default:
                     Auth::logout();
                     return back()->with(
