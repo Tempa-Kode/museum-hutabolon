@@ -108,9 +108,14 @@
                                 data-bs-toggle="dropdown"><span class="text-dark">{{ Auth::user()->nama }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
-                                        data-feather="user"></i> Profile</a>
-                                <a class="dropdown-item" href="#">Log out</a>
+                                {{-- <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
+                                        data-feather="user"></i> Profile</a> --}}
+                                <form action="{{ route('logout') }}" method="POST" id="logout-form">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item" style="cursor: pointer; border: none; background: none; width: 100%; text-align: left;">
+                                        <i class="align-middle me-1" data-feather="log-out"></i> Log out
+                                    </button>
+                                </form>
                             </div>
                         </li>
                     </ul>
