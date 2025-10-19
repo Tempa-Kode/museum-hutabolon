@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [App\Http\Controllers\HomeController::class, 'beranda'])->name('home');
 Route::get('/gallery', [App\Http\Controllers\HomeController::class, 'gallery'])->name('gallery');
 Route::get('/events', [App\Http\Controllers\HomeController::class, 'event'])->name('events');
+Route::get('/gallery/{situsSejarah:slug}', [App\Http\Controllers\HomeController::class, 'detailGallery'])->name('gallery.detail');
 
 Route::get('/login', function () {
     return view('auth.login');

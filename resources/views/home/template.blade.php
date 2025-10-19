@@ -24,6 +24,8 @@
     <link href="{{ asset('home/css/responsive.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('home/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
 
+    @stack('styles')
+
     <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('home/rs-plugin/css/settings.css') }}" media="screen" />
     <style>
@@ -130,11 +132,13 @@
     <script src="{{ asset('home/js/jquery.stellar.min.js') }}"></script>
     <script src="{{ asset('home/js/smooth-scroll.js') }}"></script>
     <script src="{{ asset('home/js/jquery.prettyPhoto.js') }}"></script>
+    <script src="https://kit.fontawesome.com/c3621d3bda.js" crossorigin="anonymous"></script>
 
     <!-- SLIDER REVOLUTION 4.x SCRIPTS  -->
     <script type="text/javascript" src="{{ asset('home/rs-plugin/js/jquery.themepunch.tools.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('home/rs-plugin/js/jquery.themepunch.revolution.min.js') }}"></script>
     <script src="{{ asset('home/js/main.js') }}"></script>
+    @stack('scripts')
     <script type="text/javascript">
         /*-----------------------------------------------------------------------------------*/
         /*  SLIDER REVOLUTION

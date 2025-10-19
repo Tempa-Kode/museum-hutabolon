@@ -55,7 +55,7 @@
                                 alt=""
                                 style="height: 300px; object-fit: cover;">
                                 <div class="detail">
-                                    <a href="#.">{{ $item->nama }}</a>
+                                    <a href="{{ route('gallery.detail', $item->slug) }}">{{ $item->nama }}</a>
                                     <p><span>Lokasi</span>: {{ $item->lokasi }}</p>
                                 </div>
                             </div>

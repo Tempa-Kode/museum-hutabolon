@@ -45,4 +45,24 @@ class HomeController extends Controller
             ->withQueryString();
         return view('home.event', compact('data'));
     }
+
+    public function detailGallery(SitusSejarah $situsSejarah)
+    {
+        $data = $situsSejarah->load('kategori', 'gambarVideo', 'komentar');
+        $this->tambahTotalPencarian($situsSejarah);
+        return view('home.detail-gallery', compact('data'));
+    }
+
+    /**
+     * Menambah total pencarian untuk situs sejarah tertentu.
+     */
+    public function tambahTotalPencarian(SitusSejarah $situsSejarah)
+    {
+        $totalPencarianExists = $situsSejarah->totalPencarian;
+        if (!$totalPencarianExists) {
+            $situsSejarah->totalPencarian()->create(['jlh_pencarian' => 1]);
+        } else {
+            $situsSejarah->totalPencarian()->increment('jlh_pencarian');
+        }
+    }
 }
