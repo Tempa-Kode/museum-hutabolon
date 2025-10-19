@@ -72,3 +72,9 @@ Route::prefix('event')->middleware('auth')->group(function () {
     Route::put('/{event:id}/update', [App\Http\Controllers\EventController::class, 'update'])->name('event.update');
     Route::delete('/{event:id}/hapus', [App\Http\Controllers\EventController::class, 'destroy'])->name('event.destroy');
 });
+
+// Route resource untuk komentar
+Route::prefix('komentar')->middleware('auth')->group(function () {
+    Route::get('/', [App\Http\Controllers\KomentarController::class, 'index'])->name('komentar.index');
+    Route::delete('/{id}/hapus', [App\Http\Controllers\KomentarController::class, 'destroy'])->name('komentar.destroy');
+});

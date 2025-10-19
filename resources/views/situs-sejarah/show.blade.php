@@ -263,10 +263,10 @@
                                     <p class="mt-2">Tidak ada komentar</p>
                                 </div>
                             @else
-                                @foreach ($data->komentar as $komentar)
+                                @foreach ($data->komentar->sortByDesc('created_at') as $komentar)
                                     <div class="card mb-3">
                                         <div class="card-body">
-                                            <h6 class="card-title mb-1">{{ $komentar->user->nama }}</h6>
+                                            <h6 class="card-title mb-1">{{ $komentar->nama }}</h6>
                                             <p class="card-text">{{ $komentar->komentar }}</p>
                                             <small class="text-muted">{{ $komentar->created_at->diffForHumans() }}</small>
                                         </div>

@@ -57,8 +57,8 @@
                                 Kategori</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="index.html">
+                    <li class="sidebar-item {{ Route::currentRouteName() == "komentar.index" ? "active" : "" }}">
+                        <a class="sidebar-link" href="{{ route('komentar.index') }}">
                             <i class="align-middle" data-feather="database"></i> <span class="align-middle">Data
                                 Komentar</span>
                         </a>
