@@ -70,7 +70,12 @@
 
             <!-- Logo -->
             <div class="container">
-                <div class="logo"> <a href="#."><img src="{{ asset('home/images/logo.png') }}"alt=""></a> </div>
+                <div class="logo">
+                    <a href="#.">
+                        {{-- <img src="{{ asset('home/images/logo.png') }}"alt=""> --}}
+                        <h3>Museum Hutabolon</h3>
+                    </a>
+                </div>
 
                 <!-- Nav -->
                 <nav>
@@ -97,7 +102,10 @@
                     <li><a href="{{ route('events') }}"> Events </a></li>
                 </ul>
                 <!-- Footer Logo -->
-                <div class="foot-logo"> <img src="{{ asset('home/images/logo-footer.png') }}" alt=""> </div>
+                <div class="foot-logo">
+                    {{-- <img src="{{ asset('home/images/logo-footer.png') }}" alt="">  --}}
+                    <h3>Museum Hutabolon</h3>
+                </div>
 
                 <!-- Footer Logo -->
                 <div class="under-footer">
