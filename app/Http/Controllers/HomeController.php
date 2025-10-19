@@ -65,4 +65,9 @@ class HomeController extends Controller
             $situsSejarah->totalPencarian()->increment('jlh_pencarian');
         }
     }
+
+    public function favorit()
+    {
+        return view('home.favorit');
+    }
 }

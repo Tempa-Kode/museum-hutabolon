@@ -63,7 +63,7 @@
                         <p><i class="ion-ios-clock-outline"></i>  Jam buka museum: 8.00 WIB hingga 17.00 WIB. Buka setiap hari</p>
                     </div>
                     <div class="call">
-                        <p><i class="ion-headphone"></i> 1800 123 4659</p>
+                        {{-- <p><i class="ion-headphone"></i> 1800 123 4659</p> --}}
                     </div>
                 </div>
             </div>

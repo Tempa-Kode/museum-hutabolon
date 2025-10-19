@@ -241,10 +241,18 @@
                                 @endif
                             </div>
                             <div class="mb-3">
-                               <button class="btn btn-outline-danger" style="margin-left: 20px" id="favoriteBtn" data-id="{{ $data->id }}">
+                               <button class="btn btn-outline-danger"
+                                        style="margin-left: 20px"
+                                        id="favoriteBtn"
+                                        data-id="{{ $data->id }}"
+                                        data-nama="{{ $data->nama }}"
+                                        data-gambar="{{ $data->gambarVideo->first() ? asset($data->gambarVideo->first()->link) : '' }}"
+                                        data-kategori="{{ $data->kategori->pluck('nama_kategori')->implode(', ') }}"
+                                        data-slug="{{ $data->slug }}"
+                                        data-type="gallery">
                                     <i class="fa-regular fa-heart"></i>
                                     Favoritkan
-                               </button>
+                                </button>
                             </div>
                         </div>
                     </div>

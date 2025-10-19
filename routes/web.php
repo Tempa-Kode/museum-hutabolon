@@ -7,6 +7,7 @@ Route::get('/gallery', [App\Http\Controllers\HomeController::class, 'gallery'])-
 Route::get('/events', [App\Http\Controllers\HomeController::class, 'event'])->name('events');
 Route::get('/gallery/{situsSejarah:slug}', [App\Http\Controllers\HomeController::class, 'detailGallery'])->name('gallery.detail');
 Route::post('/gallery/{situsSejarahId}/komentar', [App\Http\Controllers\KomentarController::class, 'tambahKomentar'])->name('gallery.tambah-komentar');
+Route::get('/favorit', [App\Http\Controllers\HomeController::class, 'favorit'])->name('favorit');
 
 Route::get('/login', function () {
     return view('auth.login');

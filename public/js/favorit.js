@@ -4,13 +4,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (favoriteBtn) {
         const itemId = favoriteBtn.getAttribute('data-id');
+        const itemData = {
+            id: itemId,
+            nama: favoriteBtn.getAttribute('data-nama'),
+            gambar: favoriteBtn.getAttribute('data-gambar'),
+            kategori: favoriteBtn.getAttribute('data-kategori'),
+            slug: favoriteBtn.getAttribute('data-slug'),
+            type: favoriteBtn.getAttribute('data-type') || 'gallery' // gallery, situs-sejarah, dll
+        };
 
         // Check if item is already favorited
         checkFavoriteStatus(itemId);
 
         // Handle favorite button click
         favoriteBtn.addEventListener('click', function() {
-            toggleFavorite(itemId);
+            toggleFavorite(itemData);
         });
     }
 });
@@ -20,7 +28,9 @@ function checkFavoriteStatus(itemId) {
     const favoriteBtn = document.getElementById('favoriteBtn');
     const icon = favoriteBtn.querySelector('i');
 
-    if (favorites.includes(itemId)) {
+    const isFavorited = favorites.some(item => item.id === itemId);
+
+    if (isFavorited) {
         // Item is favorited
         icon.classList.remove('fa-regular');
         icon.classList.add('fa-solid');
@@ -35,14 +45,16 @@ function checkFavoriteStatus(itemId) {
     }
 }
 
-function toggleFavorite(itemId) {
+function toggleFavorite(itemData) {
     let favorites = getFavorites();
     const favoriteBtn = document.getElementById('favoriteBtn');
     const icon = favoriteBtn.querySelector('i');
 
-    if (favorites.includes(itemId)) {
+    const existingIndex = favorites.findIndex(item => item.id === itemData.id);
+
+    if (existingIndex !== -1) {
         // Remove from favorites
-        favorites = favorites.filter(id => id !== itemId);
+        favorites.splice(existingIndex, 1);
         icon.classList.remove('fa-solid');
         icon.classList.add('fa-regular');
         favoriteBtn.classList.remove('btn-danger');
@@ -51,8 +63,9 @@ function toggleFavorite(itemId) {
         // Show notification
         showNotification('Dihapus dari favorit', 'info');
     } else {
-        // Add to favorites
-        favorites.push(itemId);
+        // Add to favorites with timestamp
+        itemData.favoritedAt = new Date().toISOString();
+        favorites.push(itemData);
         icon.classList.remove('fa-regular');
         icon.classList.add('fa-solid');
         favoriteBtn.classList.remove('btn-outline-danger');
@@ -64,6 +77,7 @@ function toggleFavorite(itemId) {
 
     // Save to localStorage
     saveFavorites(favorites);
+    console.log('Total favorit saat ini:', favorites);
 }
 
 function getFavorites() {
@@ -76,7 +90,7 @@ function saveFavorites(favorites) {
 }
 
 function showNotification(message, type) {
-    // Simple notification (you can replace with better UI library like toastr)
+    // Simple notification
     const notification = document.createElement('div');
     notification.className = `alert alert-${type} position-fixed top-0 start-50 translate-middle-x mt-3`;
     notification.style.zIndex = '9999';
@@ -87,4 +101,15 @@ function showNotification(message, type) {
     setTimeout(() => {
         notification.remove();
     }, 2000);
+}
+
+// Function to get favorites count (bonus)
+function getFavoritesCount() {
+    return getFavorites().length;
+}
+
+// Function to clear all favorites (bonus)
+function clearAllFavorites() {
+    localStorage.removeItem('museum_favorites');
+    showNotification('Semua favorit telah dihapus', 'warning');
 }

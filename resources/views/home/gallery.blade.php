@@ -39,8 +39,13 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-primary w-100" style="margin-top: -2px; width:100%;">Filter</button>
+                            <div class="col-md-4 d-flex justify-content-between">
+                                <button type="submit" class="btn btn-primary w-100" style="margin-top: -2px; width:40%;">
+                                    <i class="fa-solid fa-filter" style="margin-right: 5px"></i>Filter
+                                </button>
+                                <a href="{{ route('favorit') }}" class="btn  w-100" style="margin-top: -2px; width:40%;">
+                                    <i class="fa-solid fa-heart" style="margin-right: 5px"></i> Favorit
+                                </a>
                             </div>
                         </div>
                     </form>
