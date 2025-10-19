@@ -79,28 +79,6 @@ $(document).ready(function () {
         $("#video-preview").hide();
         $("#jenis").val("");
     });
-
-    // Form validation
-    $("form").submit(function (e) {
-        const jenis = $("#jenis").val();
-        if (!jenis) {
-            e.preventDefault();
-            alert("Silakan pilih jenis media terlebih dahulu.");
-            return false;
-        }
-
-        if (jenis === "gambar" && !$("#gambar").val()) {
-            e.preventDefault();
-            alert("Silakan pilih file gambar.");
-            return false;
-        }
-
-        if (jenis === "video" && !$("#video_url").val()) {
-            e.preventDefault();
-            alert("Silakan masukkan link YouTube.");
-            return false;
-        }
-    });
 });
 
 $(document).ready(function () {

@@ -253,18 +253,41 @@
                 <hr style="width: 100%; border: 1px solid #eee;">
 
                 {{-- Comment Section --}}
-                {{-- <div class="comments-section mt-4">
+                <div class="comments-section mt-4">
                     <h4 class="mb-3 fw-bold">Komentar</h4>
-                    @if ($data->komentar->count() > 1)
+                    @if ($data->komentar->count() > 0)
                         @foreach ($data->komentar as $komentar)
                             <div class="mb-3">
-                                <h6 class="fw-bold">{{ $komentar->komentar }}</h6>
+                                <h6 class="fw-bold">{{ $komentar->nama }}</h6>
                                 <p>{{ $komentar->komentar }}</p>
+                                <p><small class="text-muted">{{ $komentar->created_at->diffForHumans() }}</small></p>
                                 <hr>
                             </div>
                         @endforeach
+                    @else
+                        <p class="text-muted">Belum ada komentar untuk situs sejarah ini.</p>
                     @endif
-                </div> --}}
+                </div>
+
+                {{-- Input/Tambah Komentar --}}
+                <div class="input-comment" style="margin-top: 40px">
+                    <h4 class="mb-3 fw-bold">Tambah Komentar</h4>
+                    <form action="{{ route('gallery.tambah-komentar', $data->id) }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="nama" class="form-label">Nama</label>
+                            <input type="text" class="form-control" style="border: .5px solid #6e6e6e; border-radius: 4px;" id="nama" name="nama" required>
+                        </div>
+                        <div class="mb-3" style="margin-top: 15px">
+                            <label for="komentar" class="form-label">Komentar</label>
+                            <textarea class="form-control" style="border: .5px solid #6e6e6e; border-radius: 4px;" id="komentar" name="komentar" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="float: inline-end">
+                            <i class="fa-solid fa-paper-plane" style="margin-right: 5px"></i>
+                            Kirim Komentar
+                        </button>
+                    </form>
+                </div>
             </div>
         </section>
     </div>

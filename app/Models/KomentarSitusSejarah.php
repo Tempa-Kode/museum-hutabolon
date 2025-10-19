@@ -11,7 +11,7 @@ class KomentarSitusSejarah extends Model
 
     protected $fillable = [
         'situs_sejarah_id',
-        'user_id',
+        'nama',
         'komentar',
     ];
 
