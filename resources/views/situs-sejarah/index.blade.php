@@ -43,12 +43,18 @@
                                         <td>{{ $item->totalPencarian->jlh_pencarian ?? 0 }}</td>
                                         <td>{{ $item->created_at->format('d-m-Y') }}</td>
                                         <td>
-                                            <a href="{{ route('situs-sejarah.show', $item->slug) }}" class="btn btn-secondary btn-sm">Detail</a>
-                                            <a href="{{ route('situs-sejarah.edit', $item->slug) }}" class="btn btn-warning btn-sm">Edit</a>
+                                            <a href="{{ route('situs-sejarah.show', $item->slug) }}" class="btn btn-secondary btn-sm">
+                                                <i class="align-middle me-1" data-feather="eye"></i>
+                                            </a>
+                                            <a href="{{ route('situs-sejarah.edit', $item->slug) }}" class="btn btn-warning btn-sm">
+                                                <i class="align-middle me-1" data-feather="edit"></i>
+                                            </a>
                                             <form action="{{ route('situs-sejarah.destroy', $item->slug) }}" method="POST" style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                    <i class="align-middle me-1" data-feather="trash-2"></i>
+                                                </button>
                                             </form>
                                         </td>
                                     </tr>
