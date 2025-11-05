@@ -107,7 +107,7 @@
                                         <div id="mainMediaDisplay" class="main-media-display">
                                             @if ($firstItem->jenis === "gambar")
                                                 <img src="{{ asset($firstItem->link) }}" alt="Gambar Situs Sejarah"
-                                                    class="img-fluid rounded main-image" id="mainImage">
+                                                    class="img-fluid rounded main-image" id="mainImage" style="object-fit: contain">
                                             @elseif ($firstItem->jenis === "vidio" && $embedUrl)
                                                 <div class="ratio ratio-16x9" id="mainVideo">
                                                     <iframe src="{{ $embedUrl }}" title="YouTube video player"

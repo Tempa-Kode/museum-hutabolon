@@ -235,7 +235,7 @@
                                 </div> --}}
                                 <img class="img-responsive"
                                     src="{{ asset($item->gambarVideo->where('jenis', 'gambar')->first()->link ?? 'home/images/img-1.jpg') }}"
-                                    alt="" style="aspect-ratio: 1 / 1;">
+                                    alt="" style="aspect-ratio: 1 / 1; object-fit: contain;"/>
                                 <div class="detail">
                                     <a href="#.">{{ $item->nama }}</a>
                                     <p><span>Lokasi</span>: {{ $item->lokasi }}</p>

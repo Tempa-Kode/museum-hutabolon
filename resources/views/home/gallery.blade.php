@@ -58,7 +58,7 @@
                             <div class="inn-sec"> <span class="tag">{{ Str::limit($item->kategori->first()->nama_kategori, 30, "...") }}</span>
                                 <img class="img-responsive" src="{{ asset($item->gambarVideo->where('jenis', 'gambar')->first()->link ?? 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg') }}"
                                 alt=""
-                                style="height: 300px; object-fit: cover;">
+                                style="height: 300px; object-fit: contain;">
                                 <div class="detail">
                                     <a href="{{ route('gallery.detail', $item->slug) }}">{{ $item->nama }}</a>
                                     <p><span>Lokasi</span>: {{ $item->lokasi }}</p>
